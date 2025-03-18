@@ -32,6 +32,33 @@ def tie():
 def get_computer_choice():
     return random.choice(options)
 
+def get_player_choice(player_input):
+    global player_score, computer_score
+    print(player_input)
+    computer_input = get_computer_choice()
+    print(computer_input)
+    Pselect.config(text='Your Selected: '+player_input[0])
+    Cselect.config(text='Computer Selected: '+computer_input[0])
+    if player_input == computer_input:
+        tie()
+    if(player_input[1] == 0):
+        if(computer_input[1] == 1):
+            computer_wins()
+        elif(computer_input[1] == 2):
+            player_wins()
+
+    elif(player_input[1] == 1):
+        if(computer_input[1] == 2):
+            computer_wins()
+        elif(computer_input[1] == 0):
+            player_wins()
+
+    elif(player_input[1] == 2):
+        if(computer_input[1] == 0):
+            computer_wins()
+        elif(computer_input[1] == 1):
+            player_wins()
+
 label1 = Label(root, text="Rock, Paper, Scissors!")
 label1.pack()
 
@@ -46,13 +73,13 @@ app_font = font.Font(size=12)
 player_options = Label(frame1, text= "Your Options: ", font=app_font, fg='grey')
 player_options.grid(row=0, column=0, pady=8)
 
-button1 = Button(frame1, text="Rock", bd=5)
+button1 = Button(frame1, text="Rock", bd=5, command= lambda: get_player_choice(options[0]))
 button1.grid(row=1, column=1, pady = 5, padx = 10)
 
-button2 = Button(frame1, text="Paper", bd=5)
+button2 = Button(frame1, text="Paper", bd=5, command= lambda: get_player_choice(options[1]))
 button2.grid(row=1, column=2, pady = 5, padx = 10)
 
-button3 = Button(frame1, text = "Scissors", bd = 5)
+button3 = Button(frame1, text = "Scissors", bd = 5, command= lambda: get_player_choice(options[2]))
 button3.grid(row=1, column=3, pady = 5, padx=10)
 
 score = Label(frame1, text = "Score: ", font=app_font, fg='grey')
@@ -69,7 +96,6 @@ Cselect.grid(row=4, column=1)
 
 Cscore = Label(frame1, text="Computer Score: ", pady = 10)
 Cscore.grid(row=4, column=2)
-
 
 
 root.mainloop()
